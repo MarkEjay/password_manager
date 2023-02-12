@@ -1,0 +1,89 @@
+#Name: PasswordManager
+#Author: Mark Ejakpomewhe
+#Date: Mon Jan 30th
+#Description: A program to help manager my passwords
+#Note: Passwords wont be encrypted because the purpose of this program is to view the passwords
+#Version: version 1.0
+#Completed: false
+import json
+
+class PasswordManager:
+    #def __init__
+    #id=0
+
+    def add_account(self,name,password,password_strength):
+       # self.id+=1
+        self.name=name
+        self.password=password
+        self.password_strength=password_strength
+
+    def save_account(self):
+        accnt={ 'name':self.name, 'password':self.password,'password_strength':self.password_strength}
+        with open("accounts.json", "a") as f:
+            f.write(json.dumps(accnt,indent=2))
+
+    def view_account(self):
+        with open("accounts.json", 'r') as f:
+            data = json.loads(f.read())
+
+
+        accnts=[]
+        for d in data:
+            self.name=d['name']
+            self.password=d['password']
+            self.password_strength= d['password_strength']
+
+        print(f"Name: {self.name}")
+        print(f"Password: {self.password}")
+        print(f"Password_Strength: {self.password_strength}")
+
+
+
+def password_strength_(password_):
+    pass
+
+def add_accnt():
+    print("**** Enter Details ****")
+    input_name=input("Name: ")
+    input_password=input("Password: ")
+    input_pass_strength="mid"
+
+    p1 = PasswordManager()
+    p1.add_account(input_name, input_password, input_pass_strength)
+    p1.save_account()
+
+def view_accnt():
+    p1 = PasswordManager()
+    print(p1.view_account())
+#p1.show_account()
+
+print("************** Welcome back, Mark **************")
+
+print("Choose from the following options:\n")
+print("1.View Accounts\n2.Add Account\n3.End Program")
+
+
+
+
+option = None
+while option is None:
+    input_value = input("Enter Value: ")
+    try:
+        # try and convert the string input to a number
+        option = int(input_value)
+    except ValueError:
+        # tell the user off
+        print("{input} is not a number, please enter a number only".format(input=input_value))
+
+    if option == 1:
+        view_accnt()
+    elif option == 2:
+        add_accnt()
+    elif option == 3:
+        break
+    else:
+        option=None
+
+
+
+

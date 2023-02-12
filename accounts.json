@@ -1,0 +1,14 @@
+{
+    "accounts": [
+        {
+            "name": "net",
+            "password": "pass",
+            "password_strength": "mid"
+        },
+        {
+            "name": "hull",
+            "password": "pASS",
+            "password_strength": "mid"
+        }
+    ]
+}
