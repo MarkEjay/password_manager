@@ -52,9 +52,40 @@ class PasswordManager:
 
         #new_json= json.dumps(data)
         #print(new_json)
-
 def password_strength_(password_):
-    pass
+    points = 0
+    strength =""
+    special_characters = "!@#$%^&*()-+?_=,<>/"
+
+    if len(password_) > 5:
+        points +=2
+    if any(c in special_characters for c in password_):
+        points+=3
+    if password_.upper() == "PASSWORD":
+        points=0
+
+    for ch in password_:
+        if ch.isupper():
+            points+=1
+            break
+
+    if any(char.isdigit() for char in password_):
+        points+=2
+
+
+    if points < 3 :
+        strength = "weak"
+    elif points >= 3 and points < 7:
+        strength = "moderate"
+    else:
+        strength="strong"
+
+
+    return strength
+
+
+pw="sswrd/ddddddd2!"
+print(password_strength_(pw))
 
 def is_file_empty():
     return os.path.exists("accounts.json") and os.stat("accounts.json").st_size==0
@@ -71,7 +102,9 @@ def add_accnt():
     print("**** Enter Details ****")
     input_name=input("Name: ")
     input_password=input("Password: ")
-    input_pass_strength="mid"
+    #password_strength_(input_password)
+    input_pass_strength=password_strength_(input_password)
+
 
     p1 = PasswordManager()
     p1.add_account(input_name, input_password, input_pass_strength)
